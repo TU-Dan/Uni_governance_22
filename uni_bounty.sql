@@ -509,7 +509,7 @@ group by day
 order by day;
 
 
--- delegatees 
+
 with delegate as (
 SELECT distinct
   date_trunc('month', evt_block_time) AS month,
