@@ -691,4 +691,62 @@ group by day
 order by day;
 
 -- change point
+>= 10 UNI|>= 100 UNI|>= 1000 UNI|>= 10000 UNI|>= 100000 UNI|>= 1000000 UNI|>= 10000000 UNI|
+154201|56897|4914|1028|351|115|7|
 
+I have two tables: table1 and table2, look like this:
+table1:
+proposalId|Total_Voters
+1|603
+2|452
+3|286
+4|149
+5|1965
+
+table2:
+proposalId|Voters_id
+1|'a'
+1|'b'
+1|'c'
+2|'a'
+2|'b'
+2|'c'
+3|'d'
+3|'f'
+1|'d'
+4|'a'
+3|'e'
+2|'f'
+4|'b'
+3|'j'
+5|'a'
+5|'b'
+5|'c'
+5|'d'
+5|'e'
+5|'f'
+1|'e'
+2|'g'
+I need to calculate cummulative count of different voters order by proposalID and count of new voters compare to all proposals before,
+so I will need the result table look like this:
+proposalId|Num_Cum_Voters|Num_new_voters
+
+with total_votes AS 
+( 
+    SELECT voter, sum(total_votes) as total_votes
+    FROM 
+    (
+        SELECT 
+            voter, 
+            count(DISTINCT "proposalId") AS total_votes 
+        FROM uniswap_v2."GovernorAlpha_evt_VoteCast" 
+        GROUP BY voter 
+        UNION ALL
+        SELECT 
+            voter,
+            count(DISTINCT "proposalId") AS total_votes 
+        FROM uniswap_v3."GovernorBravoDelegate_evt_VoteCast"
+        GROUP BY voter 
+    ) as temp
+    GROUP BY voter
+)
