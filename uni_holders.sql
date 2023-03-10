@@ -148,7 +148,6 @@ WITH l_month AS (
     (SELECT (SELECT month_name FROM l_month WHERE row_num = 1) as month,
         address,isTreasury,
         sum(amount)/1e18 as uni_amount
-        -- sum(amount/1e18) OVER (ORDER BY month_num ASC ROWS BETWEEN unbounded preceding AND CURRENT ROW) AS cum_uni_amount,
     FROM transfer 
     left join l_month on transfer.month_num = l_month.row_num
     WHERE month_num <= 1
@@ -159,7 +158,6 @@ WITH l_month AS (
     (SELECT (SELECT month_name FROM l_month WHERE row_num = 2) as month,
         address,isTreasury,
         sum(amount)/1e18 as uni_amount
-        -- sum(amount/1e18) OVER (ORDER BY month_num ASC ROWS BETWEEN unbounded preceding AND CURRENT ROW) AS cum_uni_amount,
     FROM transfer
     WHERE month_num <= 2
     group by 1,2,3
@@ -169,7 +167,6 @@ WITH l_month AS (
     (SELECT (SELECT month_name FROM l_month WHERE row_num = 3) as month,
         address,isTreasury,
         sum(amount)/1e18 as uni_amount
-        -- sum(amount/1e18) OVER (ORDER BY month_num ASC ROWS BETWEEN unbounded preceding AND CURRENT ROW) AS cum_uni_amount,
     FROM transfer
     WHERE month_num <= 3
     group by 1,2,3
@@ -179,7 +176,6 @@ WITH l_month AS (
     (SELECT (SELECT month_name FROM l_month WHERE row_num = 4) as month,
         address,isTreasury,
         sum(amount)/1e18 as uni_amount
-        -- sum(amount/1e18) OVER (ORDER BY month_num ASC ROWS BETWEEN unbounded preceding AND CURRENT ROW) AS cum_uni_amount,
     FROM transfer 
     left join l_month on transfer.month_num = l_month.row_num
     WHERE month_num <= 4
@@ -190,7 +186,6 @@ WITH l_month AS (
     (SELECT (SELECT month_name FROM l_month WHERE row_num = 5) as month,
         address,isTreasury,
         sum(amount)/1e18 as uni_amount
-        -- sum(amount/1e18) OVER (ORDER BY month_num ASC ROWS BETWEEN unbounded preceding AND CURRENT ROW) AS cum_uni_amount,
     FROM transfer
     WHERE month_num <= 5
     group by 1,2,3
@@ -200,7 +195,6 @@ WITH l_month AS (
     (SELECT (SELECT month_name FROM l_month WHERE row_num = 6) as month,
         address,isTreasury,
         sum(amount)/1e18 as uni_amount
-        -- sum(amount/1e18) OVER (ORDER BY month_num ASC ROWS BETWEEN unbounded preceding AND CURRENT ROW) AS cum_uni_amount,
     FROM transfer
     WHERE month_num <= 6
     group by 1,2,3
@@ -210,7 +204,6 @@ WITH l_month AS (
     (SELECT (SELECT month_name FROM l_month WHERE row_num = 7) as month,
         address,isTreasury,
         sum(amount)/1e18 as uni_amount
-        -- sum(amount/1e18) OVER (ORDER BY month_num ASC ROWS BETWEEN unbounded preceding AND CURRENT ROW) AS cum_uni_amount,
     FROM transfer 
     left join l_month on transfer.month_num = l_month.row_num
     WHERE month_num <= 7
@@ -221,7 +214,6 @@ WITH l_month AS (
     (SELECT (SELECT month_name FROM l_month WHERE row_num = 8) as month,
         address,isTreasury,
         sum(amount)/1e18 as uni_amount
-        -- sum(amount/1e18) OVER (ORDER BY month_num ASC ROWS BETWEEN unbounded preceding AND CURRENT ROW) AS cum_uni_amount,
     FROM transfer
     WHERE month_num <= 8
     group by 1,2,3
@@ -231,7 +223,6 @@ WITH l_month AS (
     (SELECT (SELECT month_name FROM l_month WHERE row_num = 9) as month,
         address,isTreasury,
         sum(amount)/1e18 as uni_amount
-        -- sum(amount/1e18) OVER (ORDER BY month_num ASC ROWS BETWEEN unbounded preceding AND CURRENT ROW) AS cum_uni_amount,
     FROM transfer
     WHERE month_num <= 9
     group by 1,2,3
@@ -241,7 +232,6 @@ WITH l_month AS (
     (SELECT (SELECT month_name FROM l_month WHERE row_num = 10) as month,
         address,isTreasury,
         sum(amount)/1e18 as uni_amount
-        -- sum(amount/1e18) OVER (ORDER BY month_num ASC ROWS BETWEEN unbounded preceding AND CURRENT ROW) AS cum_uni_amount,
     FROM transfer 
     left join l_month on transfer.month_num = l_month.row_num
     WHERE month_num <= 10
@@ -252,7 +242,6 @@ WITH l_month AS (
     (SELECT (SELECT month_name FROM l_month WHERE row_num = 11) as month,
         address,isTreasury,
         sum(amount)/1e18 as uni_amount
-        -- sum(amount/1e18) OVER (ORDER BY month_num ASC ROWS BETWEEN unbounded preceding AND CURRENT ROW) AS cum_uni_amount,
     FROM transfer
     WHERE month_num <= 11
     group by 1,2,3
@@ -262,7 +251,6 @@ WITH l_month AS (
     (SELECT (SELECT month_name FROM l_month WHERE row_num = 12) as month,
         address,isTreasury,
         sum(amount)/1e18 as uni_amount
-        -- sum(amount/1e18) OVER (ORDER BY month_num ASC ROWS BETWEEN unbounded preceding AND CURRENT ROW) AS cum_uni_amount,
     FROM transfer
     WHERE month_num <= 12
     group by 1,2,3
@@ -272,7 +260,6 @@ WITH l_month AS (
     (SELECT (SELECT month_name FROM l_month WHERE row_num = 13) as month,
         address,isTreasury,
         sum(amount)/1e18 as uni_amount
-        -- sum(amount/1e18) OVER (ORDER BY month_num ASC ROWS BETWEEN unbounded preceding AND CURRENT ROW) AS cum_uni_amount,
     FROM transfer
     WHERE month_num <= 11
     group by 1,2,3
@@ -282,7 +269,6 @@ WITH l_month AS (
     (SELECT (SELECT month_name FROM l_month WHERE row_num = 14) as month,
         address,isTreasury,
         sum(amount)/1e18 as uni_amount
-        -- sum(amount/1e18) OVER (ORDER BY month_num ASC ROWS BETWEEN unbounded preceding AND CURRENT ROW) AS cum_uni_amount,
     FROM transfer
     WHERE month_num <= 12
     group by 1,2,3
@@ -516,6 +502,313 @@ sum(case when balance_rank <= 1000 then uni_amount end)/sum(uni_amount) as "TOP1
 FROM transferAmount
 group by 1
 ;
+-- ,l_month AS (
+--     SELECT 
+--         generate_series(date_trunc('month', (select min(evt_block_time) from transfer))+ interval '1' month, (date_trunc('month', NOW())+ interval '1' month), '1 month') AS month_name, -- Generate all days since 365 days before
+--         ROW_NUMBER() over(order by  generate_series(date_trunc('month', (select min(evt_block_time) from transfer))+ interval '1' month, (date_trunc('month', NOW())+ interval '1' month), '1 month'))  as row_num
+-- )
+
+
+-- final optimization
+-- Generate all days since 28 months before
+-- figure out how to write loops here
+WITH transfer as (
+    SELECT "from" AS address, -amount AS amount, evt_block_time,
+    case when "from" in ('\x1a9c8182c09f50c8318d769245bea52c32be35bc',
+                              '\x4750c43867ef5f89869132eccf19b9b6c4286e1a',
+                              '\xe3953d9d317b834592ab58ab2c7a6ad22b54075d',
+                              '\x4b4e140d1f131fdad6fb59c13af796fd194e4135',
+                              '\x3d30b1ab88d487b0f3061f40de76845bec3f1e94')
+             then 1 else 0 end as isTreasury-- treasury addresses
+    FROM uniswap."UNI_evt_Transfer" 
+    UNION ALL
+    SELECT "to" AS address, amount AS amount, evt_block_time,
+    case when "to" in ('\x1a9c8182c09f50c8318d769245bea52c32be35bc',
+                              '\x4750c43867ef5f89869132eccf19b9b6c4286e1a',
+                              '\xe3953d9d317b834592ab58ab2c7a6ad22b54075d',
+                              '\x4b4e140d1f131fdad6fb59c13af796fd194e4135',
+                              '\x3d30b1ab88d487b0f3061f40de76845bec3f1e94')
+             then 1 else 0 end as isTreasury -- treasury addresses
+    FROM uniswap."UNI_evt_Transfer"
+)
+,l_month AS (
+    SELECT 
+        generate_series(date_trunc('month', NOW()) - interval '28' month, (date_trunc('month', NOW())+ interval '1' month), '1 month') AS month_name, -- Generate all days since 365 days before
+        ROW_NUMBER() over(order by  generate_series(date_trunc('month', NOW()) - interval '28' month, (date_trunc('month', NOW())+ interval '1' month), '1 month'))  as row_num
+)
+, transferAmount AS (
+
+    (SELECT (SELECT month_name FROM l_month WHERE row_num = 1) as month,
+        address,isTreasury,
+        sum(amount)/1e18 as uni_amount
+    FROM transfer 
+    WHERE evt_block_time < (SELECT month_name FROM l_month WHERE row_num = 1)
+    group by 1,2,3
+    HAVING sum(amount)/1e18 > 0
+    )
+    union all 
+    (SELECT (SELECT month_name FROM l_month WHERE row_num = 2) as month,
+        address,isTreasury,
+        sum(amount)/1e18 as uni_amount
+    FROM transfer
+    WHERE evt_block_time < (SELECT month_name FROM l_month WHERE row_num = 2)
+    group by 1,2,3
+    HAVING sum(amount)/1e18 > 0
+    )
+    union all 
+    (SELECT (SELECT month_name FROM l_month WHERE row_num = 3) as month,
+        address,isTreasury,
+        sum(amount)/1e18 as uni_amount
+    FROM transfer
+    WHERE evt_block_time < (SELECT month_name FROM l_month WHERE row_num = 3)
+    group by 1,2,3
+    HAVING sum(amount)/1e18 > 0
+    )
+    union all 
+    (SELECT (SELECT month_name FROM l_month WHERE row_num = 4) as month,
+        address,isTreasury,
+        sum(amount)/1e18 as uni_amount
+    FROM transfer 
+    WHERE evt_block_time < (SELECT month_name FROM l_month WHERE row_num = 4)
+    group by 1,2,3
+    HAVING sum(amount)/1e18 > 0
+    )
+    union all 
+    (SELECT (SELECT month_name FROM l_month WHERE row_num = 5) as month,
+        address,isTreasury,
+        sum(amount)/1e18 as uni_amount
+    FROM transfer
+    WHERE evt_block_time < (SELECT month_name FROM l_month WHERE row_num = 5)
+    group by 1,2,3
+    HAVING sum(amount)/1e18 > 0
+    )
+    union all 
+    (SELECT (SELECT month_name FROM l_month WHERE row_num = 6) as month,
+        address,isTreasury,
+        sum(amount)/1e18 as uni_amount
+    FROM transfer
+    WHERE evt_block_time < (SELECT month_name FROM l_month WHERE row_num = 6)
+    group by 1,2,3
+    HAVING sum(amount)/1e18 > 0
+    )
+    union all 
+    (SELECT (SELECT month_name FROM l_month WHERE row_num = 7) as month,
+        address,isTreasury,
+        sum(amount)/1e18 as uni_amount
+    FROM transfer 
+    WHERE evt_block_time < (SELECT month_name FROM l_month WHERE row_num = 7)
+    group by 1,2,3
+    HAVING sum(amount)/1e18 > 0
+    )
+    union all 
+    (SELECT (SELECT month_name FROM l_month WHERE row_num = 8) as month,
+        address,isTreasury,
+        sum(amount)/1e18 as uni_amount
+    FROM transfer
+    WHERE evt_block_time < (SELECT month_name FROM l_month WHERE row_num = 8)
+    group by 1,2,3
+    HAVING sum(amount)/1e18 > 0
+    )
+    union all 
+    (SELECT (SELECT month_name FROM l_month WHERE row_num = 9) as month,
+        address,isTreasury,
+        sum(amount)/1e18 as uni_amount
+    FROM transfer
+    WHERE evt_block_time < (SELECT month_name FROM l_month WHERE row_num = 9)
+    group by 1,2,3
+    HAVING sum(amount)/1e18 > 0
+    )
+    union all 
+    (SELECT (SELECT month_name FROM l_month WHERE row_num = 10) as month,
+        address,isTreasury,
+        sum(amount)/1e18 as uni_amount
+    FROM transfer 
+    WHERE evt_block_time < (SELECT month_name FROM l_month WHERE row_num = 10)
+    group by 1,2,3
+    HAVING sum(amount)/1e18 > 0
+    )
+    union all 
+    (SELECT (SELECT month_name FROM l_month WHERE row_num = 11) as month,
+        address,isTreasury,
+        sum(amount)/1e18 as uni_amount
+    FROM transfer
+    WHERE evt_block_time < (SELECT month_name FROM l_month WHERE row_num = 11)
+    group by 1,2,3
+    HAVING sum(amount)/1e18 > 0
+    )
+    union all 
+    (SELECT (SELECT month_name FROM l_month WHERE row_num = 12) as month,
+        address,isTreasury,
+        sum(amount)/1e18 as uni_amount
+    FROM transfer
+    WHERE evt_block_time < (SELECT month_name FROM l_month WHERE row_num = 12)
+    group by 1,2,3
+    HAVING sum(amount)/1e18 > 0
+    )
+    union all 
+    (SELECT (SELECT month_name FROM l_month WHERE row_num = 13) as month,
+        address,isTreasury,
+        sum(amount)/1e18 as uni_amount
+    FROM transfer
+    WHERE evt_block_time < (SELECT month_name FROM l_month WHERE row_num = 13)
+    group by 1,2,3
+    HAVING sum(amount)/1e18 > 0
+    )
+    union all 
+    (SELECT (SELECT month_name FROM l_month WHERE row_num = 14) as month,
+        address,isTreasury,
+        sum(amount)/1e18 as uni_amount
+    FROM transfer
+    WHERE evt_block_time < (SELECT month_name FROM l_month WHERE row_num = 14)
+    group by 1,2,3
+    HAVING sum(amount)/1e18 > 0
+    )
+
+    union all 
+    (SELECT (SELECT month_name FROM l_month WHERE row_num = 15) as month,
+        address,isTreasury,
+        sum(amount)/1e18 as uni_amount
+    FROM transfer
+    WHERE evt_block_time < (SELECT month_name FROM l_month WHERE row_num = 15)
+    group by 1,2,3
+    HAVING sum(amount)/1e18 > 0
+    )
+    union all 
+    (SELECT (SELECT month_name FROM l_month WHERE row_num = 16) as month,
+        address,isTreasury,
+        sum(amount)/1e18 as uni_amount
+    FROM transfer
+    WHERE evt_block_time < (SELECT month_name FROM l_month WHERE row_num = 16)
+    group by 1,2,3
+    HAVING sum(amount)/1e18 > 0
+    )
+    union all 
+    (SELECT (SELECT month_name FROM l_month WHERE row_num = 17) as month,
+        address,isTreasury,
+        sum(amount)/1e18 as uni_amount
+    FROM transfer 
+    WHERE evt_block_time < (SELECT month_name FROM l_month WHERE row_num = 17)
+    group by 1,2,3
+    HAVING sum(amount)/1e18 > 0
+    )
+    union all 
+    (SELECT (SELECT month_name FROM l_month WHERE row_num = 18) as month,
+        address,isTreasury,
+        sum(amount)/1e18 as uni_amount
+    FROM transfer
+    WHERE evt_block_time < (SELECT month_name FROM l_month WHERE row_num = 18)
+    group by 1,2,3
+    HAVING sum(amount)/1e18 > 0
+    )
+    union all 
+    (SELECT (SELECT month_name FROM l_month WHERE row_num = 19) as month,
+        address,isTreasury,
+        sum(amount)/1e18 as uni_amount
+    FROM transfer
+    WHERE evt_block_time < (SELECT month_name FROM l_month WHERE row_num = 19)
+    group by 1,2,3
+    HAVING sum(amount)/1e18 > 0
+    )
+    union all 
+    (SELECT (SELECT month_name FROM l_month WHERE row_num = 20) as month,
+        address,isTreasury,
+        sum(amount)/1e18 as uni_amount
+    FROM transfer 
+    WHERE evt_block_time < (SELECT month_name FROM l_month WHERE row_num = 20)
+    group by 1,2,3
+    HAVING sum(amount)/1e18 > 0
+    )
+    union all 
+    (SELECT (SELECT month_name FROM l_month WHERE row_num = 21) as month,
+        address,isTreasury,
+        sum(amount)/1e18 as uni_amount
+    FROM transfer
+    WHERE evt_block_time < (SELECT month_name FROM l_month WHERE row_num = 21)
+    group by 1,2,3
+    HAVING sum(amount)/1e18 > 0
+    )
+    union all 
+    (SELECT (SELECT month_name FROM l_month WHERE row_num = 22) as month,
+        address,isTreasury,
+        sum(amount)/1e18 as uni_amount
+    FROM transfer
+    WHERE evt_block_time < (SELECT month_name FROM l_month WHERE row_num = 22)
+    group by 1,2,3
+    HAVING sum(amount)/1e18 > 0
+    )
+    union all 
+    (SELECT (SELECT month_name FROM l_month WHERE row_num = 23) as month,
+        address,isTreasury,
+        sum(amount)/1e18 as uni_amount
+    FROM transfer 
+    WHERE evt_block_time < (SELECT month_name FROM l_month WHERE row_num = 23)
+    group by 1,2,3
+    HAVING sum(amount)/1e18 > 0
+    )
+    union all 
+    (SELECT (SELECT month_name FROM l_month WHERE row_num = 24) as month,
+        address,isTreasury,
+        sum(amount)/1e18 as uni_amount
+    FROM transfer
+    WHERE evt_block_time < (SELECT month_name FROM l_month WHERE row_num = 24)
+    group by 1,2,3
+    HAVING sum(amount)/1e18 > 0
+    )
+    union all 
+    (SELECT (SELECT month_name FROM l_month WHERE row_num = 25) as month,
+        address,isTreasury,
+        sum(amount)/1e18 as uni_amount
+    FROM transfer
+    WHERE evt_block_time < (SELECT month_name FROM l_month WHERE row_num = 25)
+    group by 1,2,3
+    HAVING sum(amount)/1e18 > 0
+    )
+    union all 
+    (SELECT (SELECT month_name FROM l_month WHERE row_num = 26) as month,
+        address,isTreasury,
+        sum(amount)/1e18 as uni_amount
+    FROM transfer
+    WHERE evt_block_time < (SELECT month_name FROM l_month WHERE row_num = 26)
+    group by 1,2,3
+    HAVING sum(amount)/1e18 > 0
+    )
+    union all 
+    (SELECT (SELECT month_name FROM l_month WHERE row_num = 27) as month,
+        address,isTreasury,
+        sum(amount)/1e18 as uni_amount
+    FROM transfer
+    WHERE evt_block_time < (SELECT month_name FROM l_month WHERE row_num = 27)
+    group by 1,2,3
+    HAVING sum(amount)/1e18 > 0
+    )
+    union all 
+    (SELECT (SELECT month_name FROM l_month WHERE row_num = 28) as month,
+        address,isTreasury,
+        sum(amount)/1e18 as uni_amount
+    FROM transfer
+    WHERE evt_block_time < (SELECT month_name FROM l_month WHERE row_num = 28)
+    group by 1,2,3
+    HAVING sum(amount)/1e18 > 0
+    )
+    union all 
+    (SELECT (SELECT month_name FROM l_month WHERE row_num = 29) as month,
+        address,isTreasury,
+        sum(amount)/1e18 as uni_amount
+    FROM transfer
+    WHERE evt_block_time < (SELECT month_name FROM l_month WHERE row_num = 29)
+    group by 1,2,3
+    HAVING sum(amount)/1e18 > 0
+    )
+)
+select month as "Month",
+count(distinct address) as "Uni Holders",
+sum(uni_amount) as "Total Uni Quantity",
+sum(case when isTreasury = 1 then uni_amount end) as "Total Treasury Quantity",
+sum(case when isTreasury = 1 then uni_amount end)/sum(uni_amount) as "Treasury UNI Percentage"
+FROM transferAmount
+group by 1
+;
+
 
 
 
