@@ -750,33 +750,10 @@ with total_votes AS
     ) as temp
     GROUP BY voter
 )
+
+
 ;
+git test 
 
-column description:
-"# Add 1 Basis Point Fee Tier ## TLDR: Uniswap should add a 1bps fee tier with 1 tick spacing. This change is straightforward from a technical perspective and would help Uniswap compete in stablecoin <> stablecoin pairs, where the majority of the market share",
-"Should Uniswap v3 be deployed to Polygon? GFX Labs is submitting Polygon's governance proposal to deploy Uniswap v3 to Polygon on their behalf. The [consensus check](https://snapshot.org/#/uniswap/proposal/0xe869bc63ed483f00c520129724934a206b433dec613a498100e25f9f10fbeac7) passed with 44M (98.87%) YES votes and 500k (1.13%) NO votes. ",
-"# Should Uniswap Provide Voltz with v3 Additional Use Grant? ## Description Should Uniswap provide Voltz with v3 Additional Use Grant? This is the final on-chain vote, which is being submitted by GFX Labs on behalf of Voltz. * The",
-"# Should Uniswap governance contribute funding to the Nomic Foundation? ## **Summary** * Nomic Labs, the team behind Hardhat, has become the Nomic Foundation, a non-profit organization dedicated to Ethereum. Our mission is to empower",
-"# Should Uniswap governance contribute funding to the Nomic Foundation? ## **Summary** - Nomic Labs, the team behind Hardhat, has become the Nomic Foundation, a non-profit organization dedicated to Ethereum. Our mission is to empower",
-"# Polygon 1bp Fee Tier ## Description To date, Uniswap has four deployments: Ethereum, Abritrum, Optimism, and Polygon. In addition to these deployments, there are proposals to deploy Uniswap on Harmony, Celo, and more chains expected soon",
-"Celo Additional Use Grant",
-"# Should the Uniswap community participate in the Protocol Guild Pilot? *ChicagoDAO is partnering with Protocol Guild to bring this proposal to the Uniswap community! ChicagoDAO is a student group at the University of Chicago focused on pioneering a new model for",
-"# Fix the Cross Chain Messaging Bridge on Arbitrum ## Background: On Ethereum, Uniswap Labs governance consists of a suite of smart contracts. However, in addition to its original deployment on Ethereum L1 mainnet, Uniswap contracts are also deployed on four",
-"# Deploy Uniswap v3 on Celo Dear Uniswap community, A few weeks ago we (Blockchain at Michigan in partnership with the [Celo Foundation](https://celo.org/) and the [Celo Climate Collective](https://climatecollective.org/)) submitted a proposal to deploy",
-"# Deploy Uniswap v3 on Gnosis Chain Context ------- After passing the [Temperature Check vote](https://snapshot.org/#/uniswap/proposal/0xb328c7583c0f1ea85f8a273dd36977c95e47c3713744caf7143e68b65efcc8a5) with 7M UNI voting in favor of deploying Uniswap v3 on Gnosis Chain (GC), and [Consensus Check](https://",
-"# Deploy Uniswap V3 on Moonbeam ### Summary In support of furthering the vision of [Multichain Uniswap](https://uniswap.org/blog/multichain-uniswap), we at [Blockchain at Berkeley](https://blockchain.berkeley.edu/) are partnering with [Nomad](https://app",
-"# Deploy Uniswap V3 on Moonbeam ### Summary In support of furthering the vision of [Multichain Uniswap](https://uniswap.org/blog/multichain-uniswap), we at [Blockchain at Berkeley](https://blockchain.berkeley.edu/) are partnering with [Nomad](https://app",
-"# Deploy Uniswap v3 on Gnosis Chain Context ------- After passing the [Temperature Check vote](https://snapshot.org/#/uniswap/proposal/0xb328c7583c0f1ea85f8a273dd36977c95e47c3713744caf7143e68b65efcc8a5) with 7M UNI voting in favor of deploying Uniswap v3 on Gnosis Chain (GC), and [Consensus Check](https://",
-"# Should the Uniswap community participate in the Protocol Guild Pilot? *ChicagoDAO is partnering with Protocol Guild to bring this proposal to the Uniswap community! ChicagoDAO is a student group at the University of Chicago focused on pioneering a new model for",
-"# Optimism 1bp Fee Tier Sponsored by GFX Labs for MiLLie ## Description Since the original proposal to introduce a 1bp fee tier last fall [Discussion Adding 1 Basis Point Fee Pools in v3](https://gov.uniswap.org/t/discussion-adding-1-basis-point",
+git test 2
 
-
-SELECT  
-    voter, 
-    CASE WHEN support = TRUE THEN votes/ 10^18 END as votes_for,
-    CASE WHEN support = FALSE THEN votes/ 10^18 END as votes_against, 
-    CASE WHEN support = TRUE THEN 1 END as voter_for,
-    CASE WHEN support = FALSE THEN 1 END as voter_against,
-    "proposalId", 
-    contract_address
-FROM uniswap_v2."GovernorAlpha_evt_VoteCast" 
